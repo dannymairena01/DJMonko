@@ -3,12 +3,12 @@ import discord
 from discord.ext import commands,tasks
 import os
 from dotenv import load_dotenv
-import youtube_dl
+import youtube_dl 
 
 
 load_dotenv()
 # Get the API token from the .env file.
-DISCORD_TOKEN = os.getenv("discord_token")
+DISCORD_TOKEN = os.getenv("MTE1NzEwNDUzNjEyMTUwNzkwMQ.GxHfFm.wzH-kbF5khwRPHWhV3pbvM2hTg-kevRUauTh0Q")
 
 intents = discord.Intents().all()
 client = discord.Client(intents=intents)
@@ -54,13 +54,16 @@ class YTDLSource(discord.PCMVolumeTransformer):
         return filename
     
 @bot.command(name='play_song', help='To play song')
-async def play(ctx,url):
+async def play(ctx, url):
     server = ctx.message.guild
     voice_channel = server.voice_client
     async with ctx.typing():
-        filename = await YTDLSource.from_url(url, loop=bot.loop)
-        voice_channel.play(discord.FFmpegPCMAudio(executable = "C:\\Users\\abhisar.ahuja\\Documents\\ffmpeg\\ffmpeg.exe", source=filename))
-    await ctx.send('**Now playing:** {}'.format(filename))
+        try:
+            filename = await YTDLSource.from_url(url, loop=bot.loop)
+            voice_channel.play(discord.FFmpegPCMAudio(executable="/path/to/ffmpeg", source=filename))
+            await ctx.send('**Now playing:** {}'.format(filename))
+        except Exception as e:
+            await ctx.send(f"An error occurred: {e}")
 
 
 @bot.command(name='join', help='Tells the bot to join the voice channel')
@@ -111,4 +114,4 @@ async def stop(ctx):
 
 
 if __name__ == "__main__" :
-    bot.run("Paste your own discord bot token")
+    bot.run("MTE1NzEwNDUzNjEyMTUwNzkwMQ.GxHfFm.wzH-kbF5khwRPHWhV3pbvM2hTg-kevRUauTh0Q")
