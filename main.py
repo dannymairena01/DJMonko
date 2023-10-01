@@ -60,7 +60,7 @@ async def play(ctx, url):
     async with ctx.typing():
         try:
             filename = await YTDLSource.from_url(url, loop=bot.loop)
-            voice_channel.play(discord.FFmpegPCMAudio(executable="/path/to/ffmpeg", source=filename))
+            voice_channel.play(discord.FFmpegPCMAudio(executable="/Users/dannymairena01/Documents/GitHub/DJMonko/fffiles", source=filename))
             await ctx.send('**Now playing:** {}'.format(filename))
         except Exception as e:
             await ctx.send(f"An error occurred: {e}")
